@@ -11,11 +11,33 @@ export interface UserProps {
 	deletedAt?: Date | null;
 }
 
+const validate = ({
+	firstName,
+	lastName,
+	username,
+	email,
+}: Replace<UserProps, { createdAt?: Date }>) => {
+	if (!firstName) {
+		throw new Error('Invalid firstName');
+	}
+	if (!lastName) {
+		throw new Error('Invalid lastName');
+	}
+	if (!username) {
+		throw new Error('Invalid username');
+	}
+	if (!email) {
+		throw new Error('Invalid email');
+	}
+};
+
 export class User {
 	private _id: string;
 	private props: UserProps;
 
 	constructor(props: Replace<UserProps, { createdAt?: Date }>, id?: string) {
+		validate(props);
+
 		this._id = id ?? v4();
 		this.props = {
 			...props,
