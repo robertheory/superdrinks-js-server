@@ -1,4 +1,5 @@
 import { makeDrink } from '@test/factories/drink-factory';
+import { Ingredient } from './ingredient';
 import { User } from './user';
 
 describe('Drink', () => {
@@ -15,6 +16,14 @@ describe('Drink', () => {
 		expect(() => {
 			makeDrink({
 				user: {} as User,
+			});
+		}).toThrow();
+	});
+
+	it('should not be able to add a invalid ingredient on a drink', () => {
+		expect(() => {
+			makeDrink({
+				ingredients: [{} as Ingredient],
 			});
 		}).toThrow();
 	});
